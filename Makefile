@@ -1,23 +1,23 @@
-OBJ = particle_filter.o testactions.o display.o
-TST = test
+OBJ = display.o
+OB1 = test1/actions.o test1/main.o
 
-CXXF = -std=c++11
+CXXF = -std=c++11 -I.
 LDF  = -lsfml-graphics -lsfml-window -lsfml-system
 
 .PHONY: all
-all: $(TST) Makefile
+all: test.1 Makefile
 
 .PHONY: clean
 clean:
-	rm $(OBJ)
+	rm $(OBJ) $(OB1)
 
-$(TST): $(OBJ) $(TST).o
-	$(CXX) $(LDF) $(LDFLAGS) $(OBJ) $(TST).o -o $(TST)
+test.1: $(OBJ) $(OB1)
+	$(CXX) $(LDF) $(LDFLAGS) $(OBJ) $(OB1) -o test.1
 
 %.o: %.cpp Makefile
 	$(CXX) $(CXXF) $(CXXFLAGS) $(CPPFLAGS) -c $< -o $@
 
 particle_filter.o: particle_filter.hpp
-testactions.o: testactions.hpp testrobot.hpp
+test1/actions.o: test1/actions.hpp test1/robot.hpp
 display.o: display.hpp
-test.o: particle_filter.hpp testactions.hpp testrobot.hpp display.hpp particle_filter.tpp
+test1/main.o: display.hpp particle_filter.hpp particle_filter.tpp test1/actions.hpp test1/robot.hpp

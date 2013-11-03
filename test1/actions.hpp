@@ -1,12 +1,12 @@
-#ifndef TESTACTIONS_HPP_INCLUDED_
-#define TESTACTIONS_HPP_INCLUDED_ 0
+#ifndef TEST1_ACTIONS_HPP_INCLUDED_
+#define TEST1_ACTIONS_HPP_INCLUDED_ 0
 
 #include <cmath>
 #include <random>
 
-#include "testrobot.hpp"
+#include "test1/robot.hpp"
 
-namespace lg { namespace test {
+namespace lg { namespace test1 {
 
 class initializer {
    mutable std::uniform_real_distribution<float> dist_;
