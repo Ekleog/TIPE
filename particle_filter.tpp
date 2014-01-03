@@ -51,12 +51,25 @@ void LG_PF::resample_(std::vector<float> const &weights) {
    LG_PF::particle_list_type new_particles;
    new_particles.reserve(N);
 
+#if 0
    float max_weight2 = 2.f * *std::max_element(weights.begin(), weights.end());
+#else
+   float max_weight2 = 0.f;
+   for (float w : weights) {
+      max_weight2 += w;
+   }
+#endif
    size_t i = std::uniform_int_distribution<size_t>{0, N}(rng_);
    float cur = 0.f;
 
+   std::uniform_real_distribution<float> dist{0.f, max_weight2};
    while (new_particles.size() < N) {
-      cur += std::uniform_real_distribution<float>{0.f, max_weight2}(rng_);
+#if 0
+#else
+      i = 0;
+      cur = 0.f;
+#endif
+      cur += dist(rng_);
       while (cur >= weights[i]) {
          cur -= weights[i];
          i = (i + 1) % N;

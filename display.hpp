@@ -15,7 +15,9 @@ namespace impl {
    class display {
       std::unique_ptr<sf::RenderWindow> window_;
       std::unique_ptr<sf::CircleShape> particle_;
+      std::unique_ptr<sf::CircleShape> landmark_;
       std::unique_ptr<sf::CircleShape> real_;
+      std::unique_ptr<sf::CircleShape> real_landmark_;
 
    public:
       display(float minx, float maxx, float miny, float maxy);
@@ -24,7 +26,9 @@ namespace impl {
       bool closed();
 
       void show_particles(std::vector<std::pair<float, float>> const &l);
+      void show_landmark(float x, float y);
       void show_real(float x, float y);
+      void show_real_landmark(float x, float y);
 
       void update();
    };
@@ -56,8 +60,16 @@ public:
       disp_.show_particles(pos);
    }
 
+   void show_landmark(float x, float y) {
+      disp_.show_landmark(x, y);
+   }
+
    void show_real(particle_type const &p) {
       disp_.show_real(p.x(), p.y());
+   }
+
+   void show_real_landmark(float x, float y) {
+      disp_.show_real_landmark(x, y);
    }
 
    void update() {

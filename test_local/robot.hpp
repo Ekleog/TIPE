@@ -1,7 +1,7 @@
-#ifndef TEST1_ROBOT_HPP_INCLUDED_
-#define TEST1_ROBOT_HPP_INCLUDED_ 0
+#ifndef TEST_LOCAL_ROBOT_HPP_INCLUDED_
+#define TEST_LOCAL_ROBOT_HPP_INCLUDED_ 0
 
-namespace lg { namespace test1 {
+namespace lg { namespace test_local {
 
 class robot {
    float x_, y_;

@@ -1,6 +1,6 @@
-#include "test1/actions.hpp"
+#include "test_local/actions.hpp"
 
-namespace lg { namespace test1 {
+namespace lg { namespace test_local {
 
 static std::mt19937 rng{std::random_device()()};
 

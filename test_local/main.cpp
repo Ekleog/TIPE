@@ -2,8 +2,8 @@
 
 #include "display.hpp"
 #include "particle_filter.hpp"
-#include "test1/actions.hpp"
-#include "test1/robot.hpp"
+#include "test_local/actions.hpp"
+#include "test_local/robot.hpp"
 
 #define MIN_X        -500.f
 #define MAX_X        500.f
@@ -20,7 +20,7 @@
 
 #define SIGMA_MEASUR 0.5f
 
-using namespace lg::test1;
+using namespace lg::test_local;
 
 typedef lg::particle_filter<robot, initializer, action, measurement>
         particle_filter;
