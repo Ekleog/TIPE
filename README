@@ -1,0 +1,56 @@
+Le Makefile est fourni pour Linux.
+
+Il nécessite une version de g++ supportant -std=c++11 (en particulier pour
+std::unique_ptr), et la SFML (testé avec la version 2.1).
+
+La compilation produira les exécutables test.local et test.map.
+
+test.local effectue un algorithme de filtre à particules en connaissant la
+distance du robot (triangle vert) à l'origine. Les particules sont représentées
+par les points rouges.
+
+test.map effectue un algorithme (très peu élaboré) de filtre à particules en
+connaissant uniquement la distance du robot par rapport à un landmark (appelé
+beacon dans le code, car on peut imaginer calculer cette distance à partir de la
+puissance du signal reçu par une antenne). Le landmark est représenté par un
+pentagone noir, et les particules représentant la position du landmark par des
+points gris.
+
+Les paramètres par défaut fournissent des moteurs volontairement très peu
+efficaces, afin de tester les limites de l'algorithme. En effet, lorsque le
+robot avance de 1 (unité arbitraire), ses moteurs le font avancer selon une
+gaussienne de sigma 0,5. Les capteurs, eux, ont tendance à être plutôt plus
+précis.
+
+Les paramètres se configurent directement dans le code, avant de recompiler. Ils
+sont présents dans test_{local,map}/main.cpp, dans les #define au début du
+fichier. Normalement, leurs noms devraient être assez intuitifs pour être
+facilement configurables. Les paramètres qui ne sont pas indiqués dans le
+rapport de TIPE n'ont pas été modifiés pour les exemples des valeurs par défaut.
+
+Lorsque le programme est lancé, le robot se déplace (par défaut) vers le bas de
+50, puis vers la droite de 50, vers le bas de 50, etc.
+
+Pour quitter le programme, il suffit d'appuyer sur la touche "Échap.", puis
+d'attendre la fin de l'itération en cours.
+
+
+Un certain nombre de choses n'ont pas été implémentées dans ce programme :
+ * Le multithreading : il servirait à démultiplier les performances (un grand
+   nombre de phases sont facilement parallélisable), mais OpenMP n'est pas
+   portable et utiliser les threads standard ou de boost serait tout de même
+   assez long.
+ * Une pioche aléatoire intelligente des particules : Le simple fait de
+   construire un arbre de probabilités avant de rééchantillonner les particules
+   permettrait de faire passer cette opération de O(N^2) à O(N log N), mais le
+   programme s'exécutait déjà assez vite pour pouvoir prendre les captures
+   d'écran en un temps raisonnable, sans justifier cette complexité
+   additionnelle du code.
+ * Un algorithme de cartographie intelligent : celui-ci n'a malheureusement pas
+   d'autre justification que le manque de temps (pour le moment). En effet,
+   celui employé pour le moment se contente de rajouter deux dimensions aux
+   particules, ce qui ne passe évidemment pas à l'échelle. J'ai d'ailleurs
+   constaté que, une des fois où j'ai lancé test.map, l'algorithme échouait à
+   trouver le landmark et la position véritables, se trouvant approximativement
+   à une translation d'environ 10 unités, par manque de particules.
+ * Probablement bien d'autres choses auxquelles je n'ai pas encore pensé !
